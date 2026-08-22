@@ -1,0 +1,780 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>rekik.zine — issue 04</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bungee&family=Space+Mono:wght@400;700&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #EFECFB;
+    --bg-panel: #FFFFFF;
+    --ink: #1B1730;
+    --pink: #FF5CAA;
+    --pink-deep: #E8348A;
+    --cyan: #4FE3F0;
+    --lime: #C8FF4D;
+    --purple: #8B6EF5;
+    --silver-a: #F4F5FA;
+    --silver-b: #C7C9DE;
+    --silver-c: #8E90AA;
+    --line: #1B1730;
+    --radius: 14px;
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:
+      radial-gradient(circle at 15% 8%, #fff 0%, transparent 40%),
+      radial-gradient(circle at 85% 0%, #dcd6fb 0%, transparent 45%),
+      var(--bg);
+    color:var(--ink);
+    font-family:'DM Sans', sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  ::selection{ background:var(--lime); color:var(--ink); }
+
+  a{ color:inherit; }
+
+  .util{
+    font-family:'Space Mono', monospace;
+    letter-spacing:0.02em;
+  }
+
+  /* ---------- MARQUEE ---------- */
+  .marquee-wrap{
+    background:var(--ink);
+    color:var(--lime);
+    overflow:hidden;
+    white-space:nowrap;
+    border-bottom:2px solid var(--ink);
+    height: 34px;
+    display:flex;
+    align-items:center;
+  }
+  .marquee-track{
+    display:inline-flex;
+    animation: scroll-left 22s linear infinite;
+  }
+  .marquee-track span{
+    font-family:'Space Mono', monospace;
+    font-size:13px;
+    padding:0 24px;
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+  }
+  @keyframes scroll-left{
+    0%{ transform:translateX(0); }
+    100%{ transform:translateX(-50%); }
+  }
+  @media (prefers-reduced-motion: reduce){
+    .marquee-track{ animation:none; overflow-x:auto; }
+  }
+
+  /* ---------- HEADER ---------- */
+  header.site{
+    max-width:1180px;
+    margin:0 auto;
+    padding:22px 24px 10px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:20px;
+    flex-wrap:wrap;
+  }
+  .brand{
+    display:flex;
+    align-items:center;
+    gap:14px;
+  }
+  .orb{
+    width:52px; height:52px; border-radius:50%;
+    background: radial-gradient(circle at 32% 28%, #fff 0%, var(--cyan) 22%, var(--purple) 60%, var(--pink-deep) 100%);
+    box-shadow: 0 3px 0 var(--ink), inset -4px -6px 10px rgba(0,0,0,0.25), inset 3px 4px 6px rgba(255,255,255,0.6);
+    flex-shrink:0;
+  }
+  .brand-title{
+    font-family:'Bungee', sans-serif;
+    font-size:28px;
+    line-height:1;
+    background: linear-gradient(180deg, #fff 0%, var(--silver-b) 45%, var(--purple) 46%, var(--pink) 100%);
+    -webkit-background-clip:text;
+    background-clip:text;
+    color:transparent;
+    -webkit-text-stroke:1.4px var(--ink);
+    letter-spacing:0.5px;
+  }
+  .brand-sub{
+    font-family:'Space Mono', monospace;
+    font-size:11px;
+    color:var(--purple);
+    margin-top:2px;
+  }
+
+  nav.pills{
+    display:flex;
+    gap:10px;
+    flex-wrap:wrap;
+  }
+  nav.pills a{
+    text-decoration:none;
+    font-family:'Space Mono', monospace;
+    font-size:12.5px;
+    font-weight:700;
+    padding:9px 16px;
+    border:2px solid var(--ink);
+    border-radius:999px;
+    background:var(--bg-panel);
+    box-shadow: 2px 2px 0 var(--ink);
+    transition: transform .12s ease, box-shadow .12s ease, background .12s ease;
+  }
+  nav.pills a:hover{
+    background:var(--lime);
+    transform:translate(-1px,-1px);
+    box-shadow: 3px 3px 0 var(--ink);
+  }
+  nav.pills a.active{ background:var(--pink); color:#fff; }
+
+  /* ---------- HERO ---------- */
+  .hero{
+    max-width:1180px;
+    margin:18px auto 8px;
+    padding:0 24px;
+    display:grid;
+    grid-template-columns: 1.15fr 0.85fr;
+    gap:28px;
+    align-items:center;
+  }
+  .hero-copy .eyebrow{
+    font-family:'Space Mono', monospace;
+    font-size:12px;
+    background:var(--ink);
+    color:var(--lime);
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    padding:5px 10px;
+    border-radius:6px;
+    margin-bottom:16px;
+  }
+  .hero-copy h1{
+    font-family:'Bungee', sans-serif;
+    font-size:clamp(38px, 5.4vw, 64px);
+    line-height:1.02;
+    margin:0 0 18px;
+    color:var(--ink);
+    text-shadow: 3px 3px 0 var(--cyan), 6px 6px 0 rgba(27,23,48,0.15);
+  }
+  .hero-copy p{
+    font-size:16px;
+    line-height:1.6;
+    max-width:46ch;
+    color:#3a3560;
+    margin:0 0 26px;
+  }
+  .hero-cta{
+    display:flex;
+    align-items:center;
+    gap:18px;
+    flex-wrap:wrap;
+  }
+  .btn-enter{
+    font-family:'Bungee', sans-serif;
+    font-size:14px;
+    letter-spacing:0.5px;
+    color:var(--ink);
+    background:linear-gradient(180deg, #fff, var(--silver-b));
+    border:2px solid var(--ink);
+    border-radius:10px;
+    padding:14px 26px;
+    cursor:pointer;
+    box-shadow: 0 5px 0 var(--ink);
+    transition: transform .1s ease, box-shadow .1s ease;
+  }
+  .btn-enter:hover{ transform:translateY(2px); box-shadow:0 3px 0 var(--ink); }
+  .btn-enter:active{ transform:translateY(5px); box-shadow:0 0 0 var(--ink); }
+
+  .counter{
+    font-family:'Space Mono', monospace;
+    font-size:11px;
+    background:var(--ink);
+    color:var(--lime);
+    padding:8px 10px;
+    border-radius:6px;
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+  }
+  .counter b{
+    background:#000;
+    color:#0f0;
+    padding:2px 5px;
+    border-radius:3px;
+    letter-spacing:2px;
+  }
+
+  .hero-art{
+    position:relative;
+    aspect-ratio: 1 / 1;
+    max-width:420px;
+    margin:0 auto;
+  }
+  .hero-art .spin{
+    animation: spin-slow 18s linear infinite;
+    transform-origin: 50% 50%;
+  }
+  @keyframes spin-slow{ to{ transform:rotate(360deg); } }
+  @media (prefers-reduced-motion: reduce){ .hero-art .spin{ animation:none; } }
+
+  @media (max-width: 860px){
+    .hero{ grid-template-columns:1fr; }
+    .hero-art{ order:-1; max-width:280px; }
+  }
+
+  /* ---------- LAYOUT: sidebar + feed ---------- */
+  .layout{
+    max-width:1180px;
+    margin:30px auto 0;
+    padding:0 24px 60px;
+    display:grid;
+    grid-template-columns: 240px 1fr;
+    gap:26px;
+    align-items:start;
+  }
+  @media (max-width: 860px){
+    .layout{ grid-template-columns:1fr; }
+  }
+
+  .panel{
+    background:var(--bg-panel);
+    border:2px solid var(--ink);
+    border-radius:var(--radius);
+    box-shadow: 4px 4px 0 var(--ink);
+  }
+
+  aside.sidebar{ position:sticky; top:16px; display:flex; flex-direction:column; gap:18px; }
+  .sb-block{ padding:16px; }
+  .sb-title{
+    font-family:'Space Mono', monospace;
+    font-size:11px;
+    font-weight:700;
+    text-transform:uppercase;
+    letter-spacing:0.08em;
+    color:var(--purple);
+    margin:0 0 10px;
+    display:flex;
+    align-items:center;
+    gap:6px;
+  }
+  .sb-list{ list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:8px; }
+  .sb-list a{
+    text-decoration:none;
+    font-size:13.5px;
+    display:flex;
+    align-items:center;
+    gap:8px;
+    padding:6px 0;
+    border-bottom:1px dashed var(--silver-b);
+  }
+  .sb-list a:hover{ color:var(--pink-deep); }
+
+  .blinkie-row{ display:flex; flex-wrap:wrap; gap:8px; }
+  .blinkie{
+    width:64px; height:24px;
+    border:1px solid var(--ink);
+    border-radius:3px;
+    font-family:'Space Mono', monospace;
+    font-size:8px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    color:#fff;
+    animation: blink 1.4s steps(1) infinite;
+  }
+  @keyframes blink{ 50%{ opacity:0.55; } }
+  .blinkie.b1{ background:var(--pink-deep); }
+  .blinkie.b2{ background:var(--purple); }
+  .blinkie.b3{ background:#2b9e7a; }
+  @media (prefers-reduced-motion: reduce){ .blinkie{ animation:none; } }
+
+  .np{
+    font-family:'Space Mono', monospace;
+    font-size:12px;
+    line-height:1.5;
+  }
+  .np .track{ font-weight:700; color:var(--ink); }
+  .np .artist{ color:var(--purple); }
+
+  /* ---------- FEED ---------- */
+  .feed-head{
+    display:flex;
+    align-items:baseline;
+    justify-content:space-between;
+    margin-bottom:16px;
+    flex-wrap:wrap;
+    gap:10px;
+  }
+  .feed-head h2{
+    font-family:'Bungee', sans-serif;
+    font-size:22px;
+    margin:0;
+  }
+  .feed-head .sort{
+    font-family:'Space Mono', monospace;
+    font-size:11px;
+    color:var(--purple);
+  }
+
+  /* ---------- LANGUAGE FILTER ---------- */
+  .lang-filter{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    flex-wrap:wrap;
+    margin-bottom:18px;
+    padding:14px 16px;
+  }
+  .lang-filter .lf-label{
+    font-family:'Space Mono', monospace;
+    font-size:11px;
+    text-transform:uppercase;
+    letter-spacing:0.08em;
+    color:var(--purple);
+    margin-right:4px;
+  }
+  .lf-btn{
+    font-family:'Space Mono', monospace;
+    font-size:12px;
+    font-weight:700;
+    padding:8px 14px;
+    border:2px solid var(--ink);
+    border-radius:999px;
+    background:var(--bg-panel);
+    cursor:pointer;
+    box-shadow:2px 2px 0 var(--ink);
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+    transition: transform .1s ease, box-shadow .1s ease, background .1s ease;
+  }
+  .lf-btn:hover{ transform:translate(-1px,-1px); box-shadow:3px 3px 0 var(--ink); }
+  .lf-btn .dot{
+    width:8px; height:8px; border-radius:50%;
+    background:var(--silver-c);
+  }
+  .lf-btn[data-filter="en"] .dot{ background:var(--cyan); }
+  .lf-btn[data-filter="tr"] .dot{ background:var(--pink); }
+  .lf-btn[data-filter="both"] .dot{ background:var(--lime); }
+  .lf-btn.is-active{ background:var(--ink); color:#fff; }
+  .lf-btn.is-active .dot{ box-shadow:0 0 0 2px #fff inset; }
+  .lf-count{
+    font-family:'Space Mono', monospace;
+    font-size:11px;
+    color:var(--silver-c);
+    margin-left:auto;
+  }
+
+  .lang-badge{
+    font-family:'Space Mono', monospace;
+    font-size:10px;
+    font-weight:700;
+    padding:2px 7px;
+    border-radius:4px;
+    border:1px solid var(--ink);
+    display:inline-flex;
+    align-items:center;
+    gap:4px;
+  }
+  .lang-badge.lb-en{ background:var(--cyan); color:var(--ink); }
+  .lang-badge.lb-tr{ background:var(--pink); color:#fff; }
+
+  .card.is-hidden{ display:none; }
+
+  .card{
+    padding:20px;
+    margin-bottom:20px;
+    display:grid;
+    grid-template-columns: 108px 1fr;
+    gap:18px;
+  }
+  @media (max-width: 560px){
+    .card{ grid-template-columns:1fr; }
+  }
+  .card .art{
+    width:108px; height:108px;
+    border:2px solid var(--ink);
+    border-radius:10px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    overflow:hidden;
+  }
+  .card .art.c1{ background: linear-gradient(135deg, var(--cyan), var(--purple)); }
+  .card .art.c2{ background: linear-gradient(135deg, var(--lime), var(--cyan)); }
+  .card .art.c3{ background: linear-gradient(135deg, var(--pink), var(--purple)); }
+
+  .card .meta{
+    font-family:'Space Mono', monospace;
+    font-size:11px;
+    color:var(--purple);
+    display:flex;
+    gap:10px;
+    margin-bottom:6px;
+    flex-wrap:wrap;
+  }
+  .card .meta .tag{
+    background:var(--ink);
+    color:var(--lime);
+    padding:2px 7px;
+    border-radius:4px;
+  }
+  .card h3{
+    font-family:'Bungee', sans-serif;
+    font-size:19px;
+    margin:0 0 8px;
+    line-height:1.2;
+  }
+  .card p{
+    font-size:14px;
+    line-height:1.6;
+    color:#3a3560;
+    margin:0 0 10px;
+  }
+  .card .readmore{
+    font-family:'Space Mono', monospace;
+    font-size:12px;
+    font-weight:700;
+    color:var(--pink-deep);
+    text-decoration:none;
+  }
+  .card .readmore:hover{ text-decoration:underline; }
+
+  /* ---------- FOOTER ---------- */
+  footer.site{
+    border-top:2px solid var(--ink);
+    background:var(--ink);
+    color:var(--silver-a);
+    margin-top:20px;
+  }
+  .foot-inner{
+    max-width:1180px;
+    margin:0 auto;
+    padding:34px 24px 26px;
+    display:grid;
+    grid-template-columns: 1.2fr 1fr 1fr;
+    gap:28px;
+  }
+  @media (max-width:720px){ .foot-inner{ grid-template-columns:1fr; } }
+  .foot-inner h4{
+    font-family:'Space Mono', monospace;
+    font-size:11px;
+    text-transform:uppercase;
+    letter-spacing:0.08em;
+    color:var(--lime);
+    margin:0 0 12px;
+  }
+  .foot-inner p, .foot-inner li{ font-size:13px; line-height:1.7; color:#c9c6e8; }
+  .foot-inner ul{ list-style:none; margin:0; padding:0; }
+  .foot-inner a{ color:#fff; text-decoration:none; }
+  .foot-inner a:hover{ color:var(--lime); }
+
+  .webring{
+    display:flex; gap:10px; align-items:center; flex-wrap:wrap;
+    font-family:'Space Mono', monospace; font-size:11px;
+  }
+  .webring a{ border:1px solid #5c5893; padding:5px 9px; border-radius:5px; }
+
+  .guestbook-form{
+    display:flex; flex-direction:column; gap:8px; margin-top:8px;
+  }
+  .guestbook-form input, .guestbook-form textarea{
+    font-family:'Space Mono', monospace;
+    font-size:12px;
+    background:#28234a;
+    border:1px solid #5c5893;
+    border-radius:6px;
+    color:#fff;
+    padding:8px 10px;
+  }
+  .guestbook-form button{
+    font-family:'Bungee', sans-serif;
+    font-size:11px;
+    background:var(--pink);
+    border:none;
+    border-radius:6px;
+    color:#1b1730;
+    padding:10px;
+    cursor:pointer;
+  }
+
+  .best-viewed{
+    text-align:center;
+    font-family:'Space Mono', monospace;
+    font-size:10.5px;
+    color:#8a86b8;
+    padding:14px 0 22px;
+  }
+</style>
+</head>
+<body>
+
+  <div class="marquee-wrap util" aria-hidden="false">
+    <div class="marquee-track">
+      <span>✦ follow us on insta @rekik.fanzin ✦</span>
+      <span>♥ zine by hand, hosted for free ♥</span>
+      <span>☆ dm us ☆</span>
+      <span>✦ best viewed at any size ✦</span>
+      <span>✦ follow us on insta @rekik.fanzin ✦</span>
+      <span>♥ zine by hand, hosted for free ♥</span>
+      <span>☆ dm us ☆</span>
+      <span>✦ best viewed at any size ✦</span>
+    </div>
+  </div>
+
+  <header class="site">
+    <div class="brand">
+      <div class="orb"></div>
+      <div>
+        <div class="brand-title">rekik.zine</div>
+        <div class="brand-sub">est. 2026 · a little internet magazine</div>
+      </div>
+    </div>
+    <nav class="pills">
+      <a href="#" class="active">home</a>
+      <a href="#">issues</a>
+      <a href="#">about</a>
+      <a href="#">guestbook</a>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <div class="hero-copy">
+      <span class="eyebrow util">◉ ISSUE 01 — OUT NOW</span>
+      <h1>diary of a<br>dial-up summer</h1>
+      <p>Scans, doodles, and 2am thoughts from people who still believe a website can feel like a bedroom door with stickers on it. New pages every other Sunday.</p>
+      <div class="hero-cta">
+        <button class="btn-enter">ENTER SITE &gt;&gt;</button>
+        <span class="counter">VISITORS <b>004213</b></span>
+      </div>
+    </div>
+    <div class="hero-art" aria-hidden="true">
+      <svg viewBox="0 0 400 400" width="100%" height="100%">
+        <g class="spin">
+          <circle cx="200" cy="200" r="150" fill="none" stroke="#1B1730" stroke-width="2" stroke-dasharray="4 10"/>
+        </g>
+        <circle cx="200" cy="200" r="118" fill="url(#orbGrad)" stroke="#1B1730" stroke-width="2.5"/>
+        <defs>
+          <radialGradient id="orbGrad" cx="35%" cy="30%" r="75%">
+            <stop offset="0%" stop-color="#ffffff"/>
+            <stop offset="30%" stop-color="#4FE3F0"/>
+            <stop offset="65%" stop-color="#8B6EF5"/>
+            <stop offset="100%" stop-color="#E8348A"/>
+          </radialGradient>
+        </defs>
+        <!-- star doodles -->
+        <g fill="#C8FF4D" stroke="#1B1730" stroke-width="2">
+          <path d="M60 70 l7 16 17 3 -13 12 3 17 -14 -9 -14 9 3 -17 -13 -12 17 -3 z"/>
+        </g>
+        <g fill="#FF5CAA" stroke="#1B1730" stroke-width="2">
+          <path d="M330 90 l5 12 13 2 -10 9 2 13 -10 -6 -10 6 2 -13 -10 -9 13 -2 z"/>
+        </g>
+        <g fill="#4FE3F0" stroke="#1B1730" stroke-width="2">
+          <circle cx="70" cy="320" r="14"/>
+        </g>
+        <g stroke="#1B1730" stroke-width="2.5" fill="none" stroke-linecap="round">
+          <path d="M310 300 q20 -20 40 0"/>
+          <path d="M310 312 q20 -20 40 0"/>
+        </g>
+      </svg>
+    </div>
+  </section>
+
+  <div class="layout">
+    <aside class="sidebar">
+      <div class="panel sb-block">
+        <div class="sb-title">☆ navigate</div>
+        <ul class="sb-list">
+          <li><a href="#">→ latest issue</a></li>
+          <li><a href="#">→ archive</a></li>
+          <li><a href="#">→ contributors</a></li>
+          <li><a href="#">→ submit zine work</a></li>
+          <li><a href="#">→ merch (coming soon)</a></li>
+        </ul>
+      </div>
+
+      <div class="panel sb-block">
+        <div class="sb-title">◉ badges</div>
+        <div class="blinkie-row">
+          <div class="blinkie b1">100%<br>HANDMADE</div>
+          <div class="blinkie b2">NO<br>ALGORITHM</div>
+          <div class="blinkie b3">RSS<br>FRIENDLY</div>
+        </div>
+      </div>
+
+      <div class="panel sb-block">
+        <div class="sb-title">♪ now playing</div>
+        <div class="np">
+          <div class="track">"Windows 98 Startup" (slowed)</div>
+          <div class="artist">— unknown artist</div>
+        </div>
+      </div>
+    </aside>
+
+    <main>
+      <div class="feed-head">
+        <h2>latest pages</h2>
+        <span class="sort util">sorted by newest</span>
+      </div>
+
+      <div class="panel lang-filter" role="group" aria-label="Filter by language">
+        <span class="lf-label">language</span>
+        <button class="lf-btn is-active" data-filter="all" type="button"><span class="dot"></span>all</button>
+        <button class="lf-btn" data-filter="en" type="button"><span class="dot"></span>english</button>
+        <button class="lf-btn" data-filter="tr" type="button"><span class="dot"></span>türkçe</button>
+        <button class="lf-btn" data-filter="both" type="button"><span class="dot"></span>bilingual</button>
+        <span class="lf-count util" id="lfCount">5 entries</span>
+      </div>
+
+      <article class="panel card" data-lang="en">
+        <div class="art c1"></div>
+        <div>
+          <div class="meta">
+            <span class="tag">DIARY</span><span>july 24</span>
+            <span class="lang-badge lb-en">EN</span>
+          </div>
+          <h3>my inbox is a scrapbook now</h3>
+          <p>On saving every weird email attachment like it's a pressed flower, and what that says about how we used to archive a friendship.</p>
+          <a class="readmore" href="#">read entry →</a>
+        </div>
+      </article>
+
+      <article class="panel card" data-lang="tr">
+        <div class="art c2"></div>
+        <div>
+          <div class="meta">
+            <span class="tag">GÜNCE</span><span>july 21</span>
+            <span class="lang-badge lb-tr">TR</span>
+          </div>
+          <h3>bozuk bir modemin anıları</h3>
+          <p>Çevirmeli internetin çığlığını hâlâ hatırlıyorum. O ses, sabırla beklemenin ne demek olduğunu öğretmişti bize.</p>
+          <a class="readmore" href="#">yazıyı oku →</a>
+        </div>
+      </article>
+
+      <article class="panel card" data-lang="en tr">
+        <div class="art c3"></div>
+        <div>
+          <div class="meta">
+            <span class="tag">INTERVIEW</span><span>july 19</span>
+            <span class="lang-badge lb-en">EN</span>
+            <span class="lang-badge lb-tr">TR</span>
+          </div>
+          <h3>talking to the last webring admin / son webring yöneticisiyle söyleşi</h3>
+          <p>A bilingual interview, published side by side in English and Türkçe, with someone who still approves webring applications by hand.</p>
+          <a class="readmore" href="#">read entry →</a>
+        </div>
+      </article>
+
+      <article class="panel card" data-lang="en">
+        <div class="art c2"></div>
+        <div>
+          <div class="meta">
+            <span class="tag">ILLUSTRATION</span><span>july 19</span>
+            <span class="lang-badge lb-en">EN</span>
+          </div>
+          <h3>scanner sketchbook, vol. 2</h3>
+          <p>Twelve pages drawn on the bus and flatbed-scanned at 2am. Featuring three cats that don't exist and one that does.</p>
+          <a class="readmore" href="#">read entry →</a>
+        </div>
+      </article>
+
+      <article class="panel card" data-lang="tr">
+        <div class="art c1"></div>
+        <div>
+          <div class="meta">
+            <span class="tag">RÖPORTAJ</span><span>july 12</span>
+            <span class="lang-badge lb-tr">TR</span>
+          </div>
+          <h3>zinemizin ilk sayısını hazırlayan ekip</h3>
+          <p>Mutfak masasında başlayan bir fikrin, elden ele dolaşan bir dergiye dönüşme hikâyesi.</p>
+          <a class="readmore" href="#">yazıyı oku →</a>
+        </div>
+      </article>
+    </main>
+  </div>
+
+  <footer class="site">
+    <div class="foot-inner">
+      <div>
+        <h4>rekik.zine</h4>
+        <p>A small, slow, handmade internet magazine. Updated every other Sunday, whether or not anything interesting happened.</p>
+        <div class="webring" style="margin-top:14px;">
+          <a href="#">← prev site</a>
+          <a href="#">webring</a>
+          <a href="#">next site →</a>
+        </div>
+      </div>
+      <div>
+        <h4>sign the guestbook</h4>
+        <div class="guestbook-form">
+          <input type="text" placeholder="your name">
+          <textarea rows="2" placeholder="leave a little note"></textarea>
+          <button type="button">SIGN &gt;&gt;</button>
+        </div>
+      </div>
+      <div>
+        <h4>elsewhere</h4>
+        <ul>
+          <li><a href="#">RSS feed</a></li>
+          <li><a href="#">contact</a></li>
+          <li><a href="#">back to top ↑</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="best-viewed">best viewed with curiosity, at any screen size · © rekik.zine 2026</div>
+  </footer>
+
+  <script>
+    (function(){
+      var buttons = document.querySelectorAll('.lf-btn');
+      var cards = document.querySelectorAll('.card[data-lang]');
+      var countEl = document.getElementById('lfCount');
+
+      function applyFilter(filter){
+        var visible = 0;
+        cards.forEach(function(card){
+          var langs = card.getAttribute('data-lang').split(' '); // e.g. ["en"], ["tr"], ["en","tr"]
+          var show = false;
+          if(filter === 'all'){
+            show = true;
+          } else if(filter === 'both'){
+            show = langs.includes('en') && langs.includes('tr');
+          } else {
+            show = langs.includes(filter); // "en" or "tr" alone still matches bilingual entries
+          }
+          card.classList.toggle('is-hidden', !show);
+          if(show) visible++;
+        });
+        countEl.textContent = visible + (visible === 1 ? ' entry' : ' entries');
+      }
+
+      buttons.forEach(function(btn){
+        btn.addEventListener('click', function(){
+          buttons.forEach(function(b){ b.classList.remove('is-active'); });
+          btn.classList.add('is-active');
+          applyFilter(btn.getAttribute('data-filter'));
+        });
+      });
+
+      applyFilter('all');
+    })();
+  </script>
+
+</body>
+</html>
