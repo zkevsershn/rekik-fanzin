@@ -236,6 +236,21 @@
     .hero-art{ order:-1; max-width:280px; }
   }
 
+  /* ---------- ABOUT ---------- */
+  .about-wrap{
+    max-width:1180px;
+    margin:24px auto 0;
+    padding:0 24px;
+  }
+  .about-panel{
+    padding:26px 28px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:24px;
+    flex-wrap:wrap;
+  }
+
   /* ---------- LAYOUT: sidebar + feed ---------- */
   .layout{
     max-width:1180px;
@@ -513,6 +528,63 @@
     cursor:pointer;
   }
 
+  /* ---------- READ-ENTRY MODAL ---------- */
+  .modal-overlay{
+    position:fixed;
+    inset:0;
+    background:rgba(27,23,48,0.6);
+    display:none;
+    align-items:center;
+    justify-content:center;
+    padding:20px;
+    z-index:100;
+  }
+  .modal-overlay.is-open{ display:flex; }
+  .modal-panel{
+    background:var(--bg-panel);
+    max-width:560px;
+    width:100%;
+    max-height:80vh;
+    overflow-y:auto;
+    padding:30px;
+    position:relative;
+    border:2px solid var(--ink);
+    border-radius:var(--radius);
+    box-shadow:6px 6px 0 var(--ink);
+  }
+  .modal-close{
+    position:absolute;
+    top:14px; right:14px;
+    width:32px; height:32px;
+    border:2px solid var(--ink);
+    border-radius:50%;
+    background:var(--lime);
+    cursor:pointer;
+    font-family:'Space Mono', monospace;
+    font-weight:700;
+    font-size:13px;
+    line-height:1;
+  }
+  .modal-meta{
+    font-family:'Space Mono', monospace;
+    font-size:11px;
+    color:var(--purple);
+    margin-bottom:10px;
+  }
+  .modal-panel h3{
+    font-family:'Bungee', sans-serif;
+    font-size:22px;
+    margin:0 0 16px;
+    line-height:1.25;
+    padding-right:30px;
+  }
+  .modal-body p{
+    font-size:14px;
+    line-height:1.75;
+    color:#3a3560;
+    margin:0 0 14px;
+  }
+
   .best-viewed{
     text-align:center;
     font-family:'Space Mono', monospace;
@@ -524,15 +596,15 @@
 </head>
 <body>
 
-  <div class="marquee-wrap util" aria-hidden="false">
+  <div class="marquee-wrap util" id="top" aria-hidden="false">
     <div class="marquee-track">
-      <span>✦ follow us on insta @rekik.fanzin ✦</span>
-      <span>♥ zine by hand, hosted for free ♥</span>
-      <span>☆ dm us ☆</span>
+      <span>✦ NEW ISSUE #01 IS UP ✦</span>
+      <span>♥ physical zine, hosted here ♥</span>
+      <span>☆ sign the guestbook before you go ☆</span>
       <span>✦ best viewed at any size ✦</span>
-      <span>✦ follow us on insta @rekik.fanzin ✦</span>
-      <span>♥ zine by hand, hosted for free ♥</span>
-      <span>☆ dm us ☆</span>
+      <span>✦ NEW ISSUE #01 IS UP ✦</span>
+      <span>♥ physical zine, hosted here ♥</span>
+      <span>☆ sign the guestbook before you go ☆</span>
       <span>✦ best viewed at any size ✦</span>
     </div>
   </div>
@@ -542,14 +614,13 @@
       <div class="orb"></div>
       <div>
         <div class="brand-title">rekik.zine</div>
-        <div class="brand-sub">est. 2026 · a little internet magazine</div>
+        <div class="brand-sub">est. 2026 · a little internet zine</div>
       </div>
     </div>
     <nav class="pills">
-      <a href="#" class="active">home</a>
-      <a href="#">issues</a>
-      <a href="#">about</a>
-      <a href="#">guestbook</a>
+      <a href="#top" class="active">home</a>
+      <a href="#issues">issues</a>
+      <a href="#guestbook">guestbook</a>
     </nav>
   </header>
 
@@ -557,7 +628,7 @@
     <div class="hero-copy">
       <span class="eyebrow util">◉ ISSUE 01 — OUT NOW</span>
       <h1>diary of a<br>dial-up summer</h1>
-      <p>Scans, doodles, and 2am thoughts from people who still believe a website can feel like a bedroom door with stickers on it. New pages every other Sunday.</p>
+      <p>An archive of collages, music, poems, puzzles, thoughts, and prose from two best friends.</p>
       <div class="hero-cta">
         <button class="btn-enter">ENTER SITE &gt;&gt;</button>
         <span class="counter">VISITORS <b>004213</b></span>
@@ -595,6 +666,17 @@
     </div>
   </section>
 
+  <section class="about-wrap" id="about">
+    <div class="panel about-panel">
+      <div>
+        <div class="sb-title" style="margin-bottom:10px;">✦ about the zine</div>
+        <h2 style="font-family:'Bungee',sans-serif;font-size:24px;margin:0 0 12px;">made by hand, on purpose</h2>
+        <p style="font-size:14px;line-height:1.7;color:#3a3560;max-width:62ch;margin:0;">rekik.zine is a small bilingual internet zine — diary entries, scans, and interviews published in English and Türkçe, sometimes both at once. No algorithm decides what you see. New pages go up every other Sunday, and every issue stays archived here for good.</p>
+      </div>
+      <div class="orb" style="width:70px;height:70px;flex-shrink:0;"></div>
+    </div>
+  </section>
+
   <div class="layout">
     <aside class="sidebar">
       <div class="panel sb-block">
@@ -602,19 +684,9 @@
         <ul class="sb-list">
           <li><a href="#">→ latest issue</a></li>
           <li><a href="#">→ archive</a></li>
-          <li><a href="#">→ contributors</a></li>
-          <li><a href="#">→ submit zine work</a></li>
           <li><a href="#">→ merch (coming soon)</a></li>
+          <li><a href="#">→ request an issue</a></li>
         </ul>
-      </div>
-
-      <div class="panel sb-block">
-        <div class="sb-title">◉ badges</div>
-        <div class="blinkie-row">
-          <div class="blinkie b1">100%<br>HANDMADE</div>
-          <div class="blinkie b2">NO<br>ALGORITHM</div>
-          <div class="blinkie b3">RSS<br>FRIENDLY</div>
-        </div>
       </div>
 
       <div class="panel sb-block">
@@ -626,7 +698,7 @@
       </div>
     </aside>
 
-    <main>
+    <main id="issues">
       <div class="feed-head">
         <h2>latest pages</h2>
         <span class="sort util">sorted by newest</span>
@@ -650,7 +722,7 @@
           </div>
           <h3>my inbox is a scrapbook now</h3>
           <p>On saving every weird email attachment like it's a pressed flower, and what that says about how we used to archive a friendship.</p>
-          <a class="readmore" href="#">read entry →</a>
+          <button class="readmore" type="button" data-title="my inbox is a scrapbook now" data-meta="DIARY · july 24 · EN" data-body="On saving every weird email attachment like it's a pressed flower, and what that says about how we used to archive a friendship.|||I still have a folder called 'keep' from 2011. A blurry photo someone sent 'just because.' A voice memo I've never played. None of it is organized. All of it is important.|||Maybe that's the last honest archive left — not the one we curate for other people, but the one that just quietly piles up because we couldn't bring ourselves to hit delete.">read entry →</button>
         </div>
       </article>
 
@@ -663,7 +735,7 @@
           </div>
           <h3>bozuk bir modemin anıları</h3>
           <p>Çevirmeli internetin çığlığını hâlâ hatırlıyorum. O ses, sabırla beklemenin ne demek olduğunu öğretmişti bize.</p>
-          <a class="readmore" href="#">yazıyı oku →</a>
+          <button class="readmore" type="button" data-title="bozuk bir modemin anıları" data-meta="GÜNCE · july 21 · TR" data-body="Çevirmeli internetin çığlığını hâlâ hatırlıyorum. O ses, sabırla beklemenin ne demek olduğunu öğretmişti bize.|||Bağlantı otuz saniye sürerdi ve o otuz saniye boyunca hiçbir yere gitmezdik. Sadece beklerdik. Şimdi her şey anında oluyor ve garip bir şekilde, o bekleme hissini özlüyorum.|||Belki de internetin bize öğrettiği ilk şey buydu: bir şeyin değerli olması için hemen gelmesi gerekmiyor.">yazıyı oku →</button>
         </div>
       </article>
 
@@ -677,7 +749,7 @@
           </div>
           <h3>talking to the last webring admin / son webring yöneticisiyle söyleşi</h3>
           <p>A bilingual interview, published side by side in English and Türkçe, with someone who still approves webring applications by hand.</p>
-          <a class="readmore" href="#">read entry →</a>
+          <button class="readmore" type="button" data-title="talking to the last webring admin" data-meta="INTERVIEW · july 19 · EN + TR" data-body="A bilingual interview, published side by side in English and Türkçe, with someone who still approves webring applications by hand.|||EN: 'People think I'm doing this out of nostalgia,' she says. 'I'm not. I just think a website should be allowed to link to another website because someone liked it, not because an algorithm decided to.'|||TR: 'İnsanlar bunu nostalji için yaptığımı düşünüyor. Değil. Bir web sitesinin, bir algoritma karar verdiği için değil, biri beğendiği için başka bir siteye bağlanabilmesi gerektiğini düşünüyorum sadece.'">read entry →</button>
         </div>
       </article>
 
@@ -690,7 +762,7 @@
           </div>
           <h3>scanner sketchbook, vol. 2</h3>
           <p>Twelve pages drawn on the bus and flatbed-scanned at 2am. Featuring three cats that don't exist and one that does.</p>
-          <a class="readmore" href="#">read entry →</a>
+          <button class="readmore" type="button" data-title="scanner sketchbook, vol. 2" data-meta="ILLUSTRATION · july 19 · EN" data-body="Twelve pages drawn on the bus and flatbed-scanned at 2am. Featuring three cats that don't exist and one that does.|||The scanner glass never gets fully clean, so every page picks up the same faint smudge in the corner. At some point I stopped trying to fix it in post. It's basically a signature now.|||Full spreads are in the print zine. This is just the sketchbook version — pencil, no cleanup, mistakes included on purpose.">read entry →</button>
         </div>
       </article>
 
@@ -703,17 +775,17 @@
           </div>
           <h3>zinemizin ilk sayısını hazırlayan ekip</h3>
           <p>Mutfak masasında başlayan bir fikrin, elden ele dolaşan bir dergiye dönüşme hikâyesi.</p>
-          <a class="readmore" href="#">yazıyı oku →</a>
+          <button class="readmore" type="button" data-title="zinemizin ilk sayısını hazırlayan ekip" data-meta="RÖPORTAJ · july 12 · TR" data-body="Mutfak masasında başlayan bir fikrin, elden ele dolaşan bir dergiye dönüşme hikâyesi.|||İlk sayı otuz kopyaydı, hepsi ev yazıcısından çıktı, hepsi el ile zımbalandı. Kimse bunun bir 'marka' olacağını düşünmedi. Sadece paylaşacak bir şeyleri vardı.|||Şimdi dört sayı oldu ve hâlâ aynı masada oturuyoruz. Sadece kağıt daha çok.">yazıyı oku →</button>
         </div>
       </article>
     </main>
   </div>
 
-  <footer class="site">
+  <footer class="site" id="guestbook">
     <div class="foot-inner">
       <div>
         <h4>rekik.zine</h4>
-        <p>A small, slow, handmade internet magazine. Updated every other Sunday, whether or not anything interesting happened.</p>
+        <p>An archive kept by two best friends. Updated whenever we can do archive work.</p>
         <div class="webring" style="margin-top:14px;">
           <a href="#">← prev site</a>
           <a href="#">webring</a>
@@ -731,7 +803,6 @@
       <div>
         <h4>elsewhere</h4>
         <ul>
-          <li><a href="#">RSS feed</a></li>
           <li><a href="#">contact</a></li>
           <li><a href="#">back to top ↑</a></li>
         </ul>
@@ -739,6 +810,15 @@
     </div>
     <div class="best-viewed">best viewed with curiosity, at any screen size · © rekik.zine 2026</div>
   </footer>
+
+  <div class="modal-overlay" id="modalOverlay">
+    <div class="modal-panel" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <button class="modal-close" id="modalClose" type="button" aria-label="Close">✕</button>
+      <div class="modal-meta util" id="modalMeta"></div>
+      <h3 id="modalTitle"></h3>
+      <div class="modal-body" id="modalBody"></div>
+    </div>
+  </div>
 
   <script>
     (function(){
@@ -773,6 +853,44 @@
       });
 
       applyFilter('all');
+    })();
+
+    (function(){
+      var overlay = document.getElementById('modalOverlay');
+      var closeBtn = document.getElementById('modalClose');
+      var titleEl = document.getElementById('modalTitle');
+      var metaEl = document.getElementById('modalMeta');
+      var bodyEl = document.getElementById('modalBody');
+      var readButtons = document.querySelectorAll('.readmore');
+
+      function openModal(btn){
+        titleEl.textContent = btn.getAttribute('data-title') || '';
+        metaEl.textContent = btn.getAttribute('data-meta') || '';
+        var paragraphs = (btn.getAttribute('data-body') || '').split('|||');
+        bodyEl.innerHTML = '';
+        paragraphs.forEach(function(text){
+          var p = document.createElement('p');
+          p.textContent = text;
+          bodyEl.appendChild(p);
+        });
+        overlay.classList.add('is-open');
+      }
+
+      function closeModal(){
+        overlay.classList.remove('is-open');
+      }
+
+      readButtons.forEach(function(btn){
+        btn.addEventListener('click', function(){ openModal(btn); });
+      });
+
+      closeBtn.addEventListener('click', closeModal);
+      overlay.addEventListener('click', function(e){
+        if(e.target === overlay) closeModal();
+      });
+      document.addEventListener('keydown', function(e){
+        if(e.key === 'Escape') closeModal();
+      });
     })();
   </script>
 
