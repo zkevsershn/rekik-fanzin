@@ -92,12 +92,6 @@
     align-items:center;
     gap:14px;
   }
-  .orb{
-    width:52px; height:52px; border-radius:50%;
-    background: radial-gradient(circle at 32% 28%, #fff 0%, var(--cyan) 22%, var(--purple) 60%, var(--pink-deep) 100%);
-    box-shadow: 0 3px 0 var(--ink), inset -4px -6px 10px rgba(0,0,0,0.25), inset 3px 4px 6px rgba(255,255,255,0.6);
-    flex-shrink:0;
-  }
   .brand-title{
     font-family:'Bungee', sans-serif;
     font-size:28px;
@@ -236,6 +230,19 @@
     .hero-art{ order:-1; max-width:280px; }
   }
 
+  /* orbiting objects around the planet */
+  .hero-art .orbit{
+    transform-origin:200px 200px;
+    animation: spin-slow 26s linear infinite;
+  }
+  .hero-art .orbit-b{
+    animation-duration:38s;
+    animation-direction:reverse;
+  }
+  @media (prefers-reduced-motion: reduce){
+    .hero-art .orbit{ animation:none; }
+  }
+
   /* ---------- ABOUT ---------- */
   .about-wrap{
     max-width:1180px;
@@ -297,26 +304,6 @@
     border-bottom:1px dashed var(--silver-b);
   }
   .sb-list a:hover{ color:var(--pink-deep); }
-
-  .blinkie-row{ display:flex; flex-wrap:wrap; gap:8px; }
-  .blinkie{
-    width:64px; height:24px;
-    border:1px solid var(--ink);
-    border-radius:3px;
-    font-family:'Space Mono', monospace;
-    font-size:8px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    text-align:center;
-    color:#fff;
-    animation: blink 1.4s steps(1) infinite;
-  }
-  @keyframes blink{ 50%{ opacity:0.55; } }
-  .blinkie.b1{ background:var(--pink-deep); }
-  .blinkie.b2{ background:var(--purple); }
-  .blinkie.b3{ background:#2b9e7a; }
-  @media (prefers-reduced-motion: reduce){ .blinkie{ animation:none; } }
 
   .np{
     font-family:'Space Mono', monospace;
@@ -499,12 +486,6 @@
   .foot-inner a{ color:#fff; text-decoration:none; }
   .foot-inner a:hover{ color:var(--lime); }
 
-  .webring{
-    display:flex; gap:10px; align-items:center; flex-wrap:wrap;
-    font-family:'Space Mono', monospace; font-size:11px;
-  }
-  .webring a{ border:1px solid #5c5893; padding:5px 9px; border-radius:5px; }
-
   .guestbook-form{
     display:flex; flex-direction:column; gap:8px; margin-top:8px;
   }
@@ -611,7 +592,6 @@
 
   <header class="site">
     <div class="brand">
-      <div class="orb"></div>
       <div>
         <div class="brand-title">rekik.zine</div>
         <div class="brand-sub">est. 2026 · a little internet zine</div>
@@ -636,10 +616,6 @@
     </div>
     <div class="hero-art" aria-hidden="true">
       <svg viewBox="0 0 400 400" width="100%" height="100%">
-        <g class="spin">
-          <circle cx="200" cy="200" r="150" fill="none" stroke="#1B1730" stroke-width="2" stroke-dasharray="4 10"/>
-        </g>
-        <circle cx="200" cy="200" r="118" fill="url(#orbGrad)" stroke="#1B1730" stroke-width="2.5"/>
         <defs>
           <radialGradient id="orbGrad" cx="35%" cy="30%" r="75%">
             <stop offset="0%" stop-color="#ffffff"/>
@@ -648,19 +624,61 @@
             <stop offset="100%" stop-color="#E8348A"/>
           </radialGradient>
         </defs>
-        <!-- star doodles -->
+
+        <!-- orbit guide rings -->
+        <circle cx="200" cy="200" r="145" fill="none" stroke="#1B1730" stroke-width="1.5" stroke-dasharray="3 9" opacity="0.35"/>
+        <circle cx="200" cy="200" r="172" fill="none" stroke="#1B1730" stroke-width="1.5" stroke-dasharray="3 9" opacity="0.25"/>
+
+        <!-- saturn-style ring, slowly rotating -->
+        <g class="spin">
+          <ellipse cx="200" cy="200" rx="132" ry="30" fill="none" stroke="#8B6EF5" stroke-width="7" stroke-linecap="round" transform="rotate(-16 200 200)" opacity="0.85"/>
+          <ellipse cx="200" cy="200" rx="132" ry="30" fill="none" stroke="#FF5CAA" stroke-width="2.5" stroke-linecap="round" transform="rotate(-16 200 200)" opacity="0.9"/>
+        </g>
+
+        <!-- planet -->
+        <circle cx="200" cy="200" r="95" fill="url(#orbGrad)" stroke="#1B1730" stroke-width="2.5"/>
+        <path d="M120 175 q80 -30 160 5" fill="none" stroke="#ffffff" stroke-width="3" opacity="0.35" stroke-linecap="round"/>
+        <path d="M130 225 q70 22 140 -2" fill="none" stroke="#1B1730" stroke-width="2" opacity="0.18" stroke-linecap="round"/>
+
+        <!-- background sparkle stars -->
         <g fill="#C8FF4D" stroke="#1B1730" stroke-width="2">
-          <path d="M60 70 l7 16 17 3 -13 12 3 17 -14 -9 -14 9 3 -17 -13 -12 17 -3 z"/>
+          <path d="M46 60 l6 14 15 3 -11 10 3 15 -13 -8 -13 8 3 -15 -11 -10 15 -3 z"/>
         </g>
         <g fill="#FF5CAA" stroke="#1B1730" stroke-width="2">
-          <path d="M330 90 l5 12 13 2 -10 9 2 13 -10 -6 -10 6 2 -13 -10 -9 13 -2 z"/>
+          <path d="M344 84 l5 11 12 2 -9 8 2 12 -10 -6 -10 6 2 -12 -9 -8 12 -2 z"/>
         </g>
-        <g fill="#4FE3F0" stroke="#1B1730" stroke-width="2">
-          <circle cx="70" cy="320" r="14"/>
+
+        <!-- orbit A: vinyl record + cassette tape -->
+        <g class="orbit orbit-a">
+          <g transform="translate(345,200)">
+            <circle r="22" fill="#1B1730"/>
+            <circle r="16" fill="none" stroke="#3a3560" stroke-width="1.5"/>
+            <circle r="11" fill="none" stroke="#3a3560" stroke-width="1.5"/>
+            <circle r="7" fill="#FF5CAA" stroke="#1B1730" stroke-width="1.5"/>
+            <circle r="2" fill="#1B1730"/>
+          </g>
+          <g transform="translate(55,200)">
+            <rect x="-24" y="-16" width="48" height="32" rx="5" fill="#F4F5FA" stroke="#1B1730" stroke-width="2"/>
+            <rect x="-16" y="-7" width="32" height="10" rx="2" fill="#ffffff" stroke="#1B1730" stroke-width="1.3"/>
+            <circle cx="-8" cy="-2" r="4" fill="none" stroke="#1B1730" stroke-width="1.3"/>
+            <circle cx="8" cy="-2" r="4" fill="none" stroke="#1B1730" stroke-width="1.3"/>
+            <rect x="-18" y="8" width="36" height="4" rx="1.5" fill="#4FE3F0" stroke="#1B1730" stroke-width="1"/>
+          </g>
         </g>
-        <g stroke="#1B1730" stroke-width="2.5" fill="none" stroke-linecap="round">
-          <path d="M310 300 q20 -20 40 0"/>
-          <path d="M310 312 q20 -20 40 0"/>
+
+        <!-- orbit B: pen + paper note -->
+        <g class="orbit orbit-b">
+          <g transform="translate(200,28) rotate(40)">
+            <rect x="-5" y="-24" width="10" height="40" rx="3" fill="#8B6EF5" stroke="#1B1730" stroke-width="2"/>
+            <path d="M-5 16 L5 16 L0 28 Z" fill="#1B1730"/>
+            <rect x="-5" y="-24" width="10" height="10" rx="3" fill="#FF5CAA" stroke="#1B1730" stroke-width="2"/>
+          </g>
+          <g transform="translate(200,372) rotate(-8)">
+            <rect x="-20" y="-15" width="40" height="30" rx="3" fill="#FEFCEF" stroke="#1B1730" stroke-width="2"/>
+            <line x1="-13" y1="-6" x2="13" y2="-6" stroke="#C7C9DE" stroke-width="2"/>
+            <line x1="-13" y1="0" x2="13" y2="0" stroke="#C7C9DE" stroke-width="2"/>
+            <line x1="-13" y1="6" x2="6" y2="6" stroke="#C7C9DE" stroke-width="2"/>
+          </g>
         </g>
       </svg>
     </div>
@@ -670,10 +688,9 @@
     <div class="panel about-panel">
       <div>
         <div class="sb-title" style="margin-bottom:10px;">✦ about the zine</div>
-        <h2 style="font-family:'Bungee',sans-serif;font-size:24px;margin:0 0 12px;">made by hand, on purpose</h2>
-        <p style="font-size:14px;line-height:1.7;color:#3a3560;max-width:62ch;margin:0;">rekik.zine is a small bilingual internet zine — diary entries, scans, and interviews published in English and Türkçe, sometimes both at once. No algorithm decides what you see. New pages go up every other Sunday, and every issue stays archived here for good.</p>
+        <h2 style="font-family:'Bungee',sans-serif;font-size:24px;margin:0 0 12px;">made by us for us</h2>
+        <p style="font-size:14px;line-height:1.7;color:#3a3560;max-width:62ch;margin:0;">rekik is an zine/rekik bir fanzindir — separated by distance and logistical questions, we have decided to take advantage of the power of the github html.</p>
       </div>
-      <div class="orb" style="width:70px;height:70px;flex-shrink:0;"></div>
     </div>
   </section>
 
@@ -786,11 +803,6 @@
       <div>
         <h4>rekik.zine</h4>
         <p>An archive kept by two best friends. Updated whenever we can do archive work.</p>
-        <div class="webring" style="margin-top:14px;">
-          <a href="#">← prev site</a>
-          <a href="#">webring</a>
-          <a href="#">next site →</a>
-        </div>
       </div>
       <div>
         <h4>sign the guestbook</h4>
@@ -829,14 +841,14 @@
       function applyFilter(filter){
         var visible = 0;
         cards.forEach(function(card){
-          var langs = card.getAttribute('data-lang').split(' '); // e.g. ["en"], ["tr"], ["en","tr"]
+          var langs = card.getAttribute('data-lang').split(' ');
           var show = false;
           if(filter === 'all'){
             show = true;
           } else if(filter === 'both'){
             show = langs.includes('en') && langs.includes('tr');
           } else {
-            show = langs.includes(filter); // "en" or "tr" alone still matches bilingual entries
+            show = langs.includes(filter);
           }
           card.classList.toggle('is-hidden', !show);
           if(show) visible++;
